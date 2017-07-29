@@ -72,10 +72,13 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
+# Thanks archlinux
+patch -p0 < $CWD/gcc6.patch
+
 # Assume wxWidgets is already installed and we're linking dynamically.
 
 TC_EXTRA_CFLAGS="$SLKCFLAGS" \
-TC_EXTRA_CXXFLAGS="$SLKCFLAGS" \
+TC_EXTRA_CXXFLAGS="$SLKCFLAGS -Wno-error=narrowing" \
 TC_EXTRA_LFLAGS="$SLKLDFLAGS -ldl" \
 make
 
